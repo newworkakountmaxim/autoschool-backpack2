@@ -16,10 +16,10 @@ return [
 
     // Menu logos
     'logo_lg'   => '<b>Autoschool2</b>',
-    'logo_mini' => '<b>A2</b>p',
+    'logo_mini' => '<b>A2</b>',
 
     // Developer or company name. Shown in footer.
-    'developer_name' => 'Maz Max',
+    'developer_name' => 'Max Max',
 
     // Developer website. Link in footer.
     'developer_link' => '',
