@@ -24,3 +24,4 @@ Route::get('/', function () {
     
 // });
 
+// Route::get('admin/dashboard', 'AdminController@dashboard')->name('backpack.dashboard')->middleware('can:dashboard');

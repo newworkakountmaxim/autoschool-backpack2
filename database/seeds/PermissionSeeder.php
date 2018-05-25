@@ -25,7 +25,7 @@ class PermissionSeeder extends Seeder
 			'permission-manager'=>['superadmin'],
 			'crud-all'=>['superadmin'],
 			'adminka'=>['superadmin','teacher'],
-			'test'=>['admin']
+			'test'=>['superadmin']
 		];
 
 		//create roles

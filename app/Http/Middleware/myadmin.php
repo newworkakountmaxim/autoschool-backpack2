@@ -6,7 +6,7 @@ use Closure;
 
 use Illuminate\Support\Facades\Auth;
 
-class myadmin
+class myadmin extends Middleware
 {
     /**
      * Handle an incoming request.
