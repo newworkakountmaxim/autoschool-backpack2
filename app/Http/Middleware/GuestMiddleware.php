@@ -3,10 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
 use Illuminate\Support\Facades\Auth;
 
-class myadmin extends Middleware
+class GuestMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,12 +16,9 @@ class myadmin extends Middleware
      */
     public function handle($request, Closure $next)
     {
-        // проверяем принадлежность пользователя
-        //if ( Auth::check() && Auth::user()->isAdmin()==true )
-        if ( Auth::check() )
-        {
-            //return $next($request);
-            return 1;
+      $user = Auth::user();
+        if($user && $user->hasRole('superadmin')){
+          return $next($request);
         }
         return redirect('/');
     }

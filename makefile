@@ -84,6 +84,9 @@ clear_cache: #clear laravel cache php artisan optimize --force php artisan confi
 socket: #start socket message service
 	@sudo docker exec -it $(docker_name) bash -c 'php artisan socket_messages_server:serve'
 
+bash: #bash
+	@sudo docker exec -it $(docker_name) bash 
+
 remove_tmp_files: #remove files from tmp folder
 	@sudo docker exec -it $(docker_name) bash -c 'php artisan tmp_files:remove'
 
