@@ -15,13 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Route::group( function () {
+    // Route::get('/guest', function () {
+    //   return 'welcome guset';
+    // })->middleware('guestMid');
+//});
 
-// Route::middleware(['myadmin'])->group(function () {
-//     Route::get('/admin', function () {
-        
-//     });
+Route::middleware(['guestMid'])->group(function () {
+    Route::resource('guest', 'TicketsController');
+    // Route::get('/guest', function () {
+    //   return 'welcome guset';
+    // });
 
-    
-// });
+});
 
 // Route::get('admin/dashboard', 'AdminController@dashboard')->name('backpack.dashboard')->middleware('can:dashboard');
