@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Backpack\CRUD\CrudTrait; // <------------------------------- this one
 use Spatie\Permission\Traits\HasRoles;// <---------------------- and this one
-use Illuminate\Foundation\Auth\User as Authenticatable; 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 
@@ -45,6 +45,11 @@ class User extends Authenticatable
         $this->notify(new ResetPasswordNotification($token));
     }
 
+    public function theme()
+    {
+        return $this->hasMany('App\Models\Theme');
+    }
+
 
     // Потуги сделать Middleware
     public function isAdmin()
@@ -53,7 +58,5 @@ class User extends Authenticatable
     }
     // end Потуги сделать Middleware
 
-    
+
 }
-
-
