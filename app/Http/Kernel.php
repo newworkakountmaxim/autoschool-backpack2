@@ -60,6 +60,6 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'guestMid' => \App\Http\Middleware\GuestMiddleware::class,
-        'admin'=>\App\Http\Middleware\myadmin::class,
+        //'admin'=>\App\Http\Middleware\myadmin::class,
     ];
 }
