@@ -74,15 +74,21 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
+          @role('superadmin')
+              @include('backpack::admin.menu')
+          @else
+            @include('backpack::teacher.menu')
+          @endrole
 
-          @include('backpack::inc.menu')
         </nav>
       </header>
 
       <!-- =============================================== -->
-
-      @include('backpack::inc.sidebar')
-
+      @role('superadmin')
+        @include('backpack::admin.sidebar')
+      @else
+        @include('backpack::teacher.sidebar')
+      @endrole
       <!-- =============================================== -->
 
       <!-- Content Wrapper. Contains page content -->
@@ -171,7 +177,7 @@
         });
     </script>
 
-    @include('backpack::inc.alerts')
+    @include('backpack::admin.alerts')
 
     @yield('after_scripts')
     @stack('after_scripts')
