@@ -8,4 +8,21 @@
       <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/role') }}"><i class="fa fa-group"></i> <span>Roles</span></a></li>
       <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
     </ul>
-  </li>
+</li>
+<li class="treeview">
+    <a href="#"><i class="fa fa-align-left"></i> <span>Темы</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+    	<li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/theme') }}"><i class="fa fa-eye"></i> <span>Все темы</span></a></li>
+      	<li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/theme/create') }}"><i class="fa fa-plus"></i> <span>Новая тема</span></a></li>      
+    </ul>
+
+</li>
+<li class="treeview">
+    <a href="#"><i class="fa fa-align-left"></i> <span>Вопросы</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+    	<li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/question') }}"><i class="fa fa-eye"></i> <span>Все вопросы</span></a></li>
+      	<li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/question/create') }}"><i class="fa fa-plus"></i> <span>Новый вопрос</span></a></li>      
+    </ul>
+
+</li>
+ 
