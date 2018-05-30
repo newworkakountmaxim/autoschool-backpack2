@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Theme');
     }
 
+    public function question()
+    {
+        return $this->hasMany('App\Models\Question');
+    }
+
 
     // Потуги сделать Middleware
     public function isAdmin()

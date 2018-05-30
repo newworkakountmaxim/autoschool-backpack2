@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\User;
-
+use App\Models\Question;
 // VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\ThemeRequest as StoreRequest;
-use App\Http\Requests\ThemeRequest as UpdateRequest;
+use App\Http\Requests\QuestionRequest as StoreRequest;
+use App\Http\Requests\QuestionRequest as UpdateRequest;
 
-class ThemeCrudController extends CrudController
+class QuestionCrudController extends CrudController
 {
     public function setup()
     {
@@ -19,9 +19,9 @@ class ThemeCrudController extends CrudController
         | BASIC CRUD INFORMATION
         |--------------------------------------------------------------------------
         */
-        $this->crud->setModel('App\Models\Theme');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/theme');
-        $this->crud->setEntityNameStrings('theme', 'themes');
+        $this->crud->setModel('App\Models\Question');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/question');
+        $this->crud->setEntityNameStrings('question', 'questions');
 
         /*
         |--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ class ThemeCrudController extends CrudController
         */
 
         //$this->crud->setFromDb();
-        $this->crud->addColumns(['name' , 'decription' ] ); 
+        $this->crud->addColumns(['name', 'img_id', 'qty_answ', 'cor_answ', 'answers'] ); 
         $this->crud->addColumn([  // Select
            'label' => "User naMe",
            'type' => 'select',
@@ -39,19 +39,45 @@ class ThemeCrudController extends CrudController
            'attribute' => 'name', // foreign key attribute that is shown to user
            'model' => "App\User" // foreign key model
         ]);
+        $this->crud->addColumn([  // Select
+           'label' => "Theme",
+           'type' => 'select',
+           'name' => 'theme_id', // the db column for the foreign key
+           'entity' => 'theme', // the method that defines the relationship in your Model
+           'attribute' => 'name', // foreign key attribute that is shown to user
+           'model' => "App\Models\Theme" // foreign key model
+        ]);
+        $this->crud->addColumns(['pdd_links', 'feature', 'comments'] ); 
+
+        // ------ CRUD FIELDS
+        // $this->crud->addField($options, 'update/create/both');
+        // $this->crud->addFields($array_of_arrays, 'update/create/both');
+        // $this->crud->removeField('name', 'update/create/both');
+        // $this->crud->removeFields($array_of_names, 'update/create/both');
 
         $this->crud->addField([
             'name' => 'name',
-            'label' => "Название темы"
+            'label' => "Название вопроса"
         ]);
-
         $this->crud->addField([
-            'name' => 'decription',
-            'label' => "Описание темы"
+            'name' => 'img_id',
+            'label' => "Изображение вопроса"
         ]);
-
+        $this->crud->addField([
+            'name' => 'qty_answ',
+            'label' => "Количество ответов"
+        ]);
+        $this->crud->addField([
+            'name' => 'cor_answ',
+            'label' => "Правильный ответ"
+        ]);
+        $this->crud->addField([
+            'name' => 'answers',
+            'label' => "Ответы"
+        ]);
+        // //////////////////////////
         $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
-            'label' => "User id",
+            'label' => "Автор",
             'type' => 'select2',
             'name' => 'user_id', // the method that defines the relationship in your Model
             'entity' => 'user', // the method that defines the relationship in your Model
@@ -60,16 +86,28 @@ class ThemeCrudController extends CrudController
             //'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
 
-        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning'); // add a button whose HTML is returned by a method in the CRUD model
-        //$this->crud->enableShow();
-       // $this->crud->addShowColumn(); 
-
-        // ------ CRUD FIELDS
-        // $this->crud->addField($options, 'update/create/both');
-        // $this->crud->addFields($array_of_arrays, 'update/create/both');
-        // $this->crud->removeField('name', 'update/create/both');
-        // $this->crud->removeFields($array_of_names, 'update/create/both');
-
+        $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
+            'label' => "Тема",
+            'type' => 'select2',
+            'name' => 'theme_id', // the method that defines the relationship in your Model
+            'entity' => 'theme', // the method that defines the relationship in your Model
+            'attribute' => 'id', // foreign key attribute that is shown to user
+            'model' => "App\Models\Theme", // foreign key model
+            //'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+        ]);
+        ////////////////////////
+        $this->crud->addField([
+            'name' => 'pdd_links',
+            'label' => "Ссылки"
+        ]);
+        $this->crud->addField([
+            'name' => 'feature',
+            'label' => "Дополнительно"
+        ]);
+        $this->crud->addField([
+            'name' => 'comments',
+            'label' => "Комментарии"
+        ]);
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
         // $this->crud->addColumns(); // add multiple columns, at the end of the stack
@@ -135,11 +173,6 @@ class ThemeCrudController extends CrudController
 
     public function store(StoreRequest $request)
     {
-
-        // $input = $request->only('name','decription', 'user_id');
-        // Theme::create($input);
-        // redirect('admin/theme');
-
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here

@@ -86,9 +86,14 @@
       <!-- =============================================== -->
       @role('superadmin')
         @include('backpack::admin.sidebar')
-      @else
-        @include('backpack::teacher.sidebar')
       @endrole
+      @role('teacher')
+        @include('backpack::teacher.sidebar')
+      @endrole 
+      @role('user')
+        @include('backpack::user.sidebar')
+      @endrole 
+     
       <!-- =============================================== -->
 
       <!-- Content Wrapper. Contains page content -->
