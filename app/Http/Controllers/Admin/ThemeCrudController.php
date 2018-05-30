@@ -5,12 +5,21 @@ namespace App\Http\Controllers\Admin;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\User;
 
+
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\ThemeRequest as StoreRequest;
 use App\Http\Requests\ThemeRequest as UpdateRequest;
 
 class ThemeCrudController extends CrudController
 {
+    use ConnectPusherTrait;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->connectPusher();
+    }
+
     public function setup()
     {
 
@@ -30,7 +39,7 @@ class ThemeCrudController extends CrudController
         */
 
         //$this->crud->setFromDb();
-        $this->crud->addColumns(['name' , 'decription' ] ); 
+        $this->crud->addColumns(['name' , 'decription' ] );
         $this->crud->addColumn([  // Select
            'label' => "User naMe",
            'type' => 'select',
@@ -62,7 +71,7 @@ class ThemeCrudController extends CrudController
 
         $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning'); // add a button whose HTML is returned by a method in the CRUD model
         //$this->crud->enableShow();
-       // $this->crud->addShowColumn(); 
+       // $this->crud->addShowColumn();
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
@@ -136,7 +145,7 @@ class ThemeCrudController extends CrudController
     public function store(StoreRequest $request)
     {
 
-        // $input = $request->only('name','decription', 'user_id');
+        $input = $request->only('name','decription', 'user_id');
         // Theme::create($input);
         // redirect('admin/theme');
 
@@ -144,9 +153,17 @@ class ThemeCrudController extends CrudController
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
+
+          $data['message'] = $input['name'];
+          $this->pusher->trigger('my-channel', 'my-event', $data);
+
         return $redirect_location;
     }
 
+    /**
+     * @param UpdateRequest $request
+     * @return mixed
+     */
     public function update(UpdateRequest $request)
     {
         // your additional operations before save here
