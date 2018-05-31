@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Traits\ConnectPusherTrait;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\User;
 
