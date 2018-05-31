@@ -6,6 +6,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
+        <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+        <script>
+
+          // Enable pusher logging - don't include this in production
+          Pusher.logToConsole = true;
+
+          var pusher = new Pusher('02f850e8bec5a3e3c451', {
+            cluster: 'eu',
+            encrypted: true
+          });
+
+          var channel = pusher.subscribe('my-channel');
+
+          var questionChannel = pusher.subscribe('question-channel');
+
+          channel.bind('my-event', function(data) {
+            alert(data.message);
+          });
+
+          questionChannel.bind('added-item', function(data) {
+            $('#list').appendChild('<div>'+ data.text +'</div>');
+          });
+        </script>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
