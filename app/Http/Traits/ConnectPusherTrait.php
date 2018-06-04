@@ -19,7 +19,7 @@ trait ConnectPusherTrait {
           'cluster' => 'eu',
           'encrypted' => true
       );
-      $this->pusher = new \Pusher($auth_key, $secret, $app_id, $options);
+      $this->pusher = new Pusher($auth_key, $secret, $app_id, $options);
   }
 
 }

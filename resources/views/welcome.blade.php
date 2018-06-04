@@ -10,24 +10,24 @@
         <script>
 
           // Enable pusher logging - don't include this in production
-          Pusher.logToConsole = true;
+          // Pusher.logToConsole = true;
 
-          var pusher = new Pusher('02f850e8bec5a3e3c451', {
-            cluster: 'eu',
-            encrypted: true
-          });
+          // var pusher = new Pusher('02211164b3c615d63bd5', {
+          //   cluster: 'eu',
+          //   encrypted: true
+          // });
 
-          var channel = pusher.subscribe('my-channel');
+          // var channel = pusher.subscribe('my-channel');
 
-          var questionChannel = pusher.subscribe('question-channel');
+          // var questionChannel = pusher.subscribe('question-channel');
 
-          channel.bind('my-event', function(data) {
-            alert(data.message);
-          });
+          // channel.bind('my-event', function(data) {
+          //   alert(data.message);
+          // });
 
-          questionChannel.bind('added-item', function(data) {
-            $('#list').appendChild('<div>'+ data.text +'</div>');
-          });
+          // questionChannel.bind('added-item', function(data) {
+          //   $('#list').appendChild('<div>'+ data.text +'</div>');
+          // });
         </script>
 
         <!-- Fonts -->

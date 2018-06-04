@@ -19,7 +19,7 @@ class Question extends Model
     protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'img_id', 'qty_answ', 'cor_answ', 'answers', 'user_id', 'theme_id', 'pdd_links', 'feature', 'comments'];
+    protected $fillable = ['name', 'img_url', 'qty_answ', 'cor_answ', 'answers', 'user_id', 'theme_id', 'pdd_links', 'feature', 'comments'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -41,6 +41,10 @@ class Question extends Model
     public function theme()
     {
         return $this->belongsTo('App\Models\Theme');
+    }
+    public function ticket()
+    {
+        return $this->belongsTo('App\Models\Ticket');
     }
     /*
     |--------------------------------------------------------------------------

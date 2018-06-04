@@ -17,5 +17,6 @@ Route::group(
 
 		CRUD::resource('theme', 'ThemeCrudController');
 		CRUD::resource('question', 'QuestionCrudController');
+		CRUD::resource('ticket', 'TicketCrudController');
 
 	}); // this should be the absolute last line of this file
