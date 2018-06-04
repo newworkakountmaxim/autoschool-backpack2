@@ -4,7 +4,7 @@
         <!-- ========== Top menu items (ordered left) ========== -->
         <!-- =================================================== -->
 
-        <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> <span>Home Admin</span></a></li>
+        <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> <span>Главная Админ</span></a></li>
 
         <!-- ========== End of top menu left items ========== -->
     </ul>

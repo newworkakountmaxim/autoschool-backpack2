@@ -29,8 +29,19 @@ class QuestionCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        //$this->crud->setFromDb();
-        $this->crud->addColumns(['name', 'img_id', 'qty_answ', 'cor_answ', 'answers'] ); 
+        //$this->crud->setFromDb();]
+        $this->crud->addColumn('name');
+        
+        $this->crud->addColumn([
+            'name' => 'img_url', // The db column name
+            'label' => "Изображение", // Table column heading
+            'type' => 'image',                      
+            'height' => '80px',
+            'width' => '80px'
+        ]);
+
+        $this->crud->addColumns(['qty_answ', 'cor_answ', 'answers'] );
+
         $this->crud->addColumn([  // Select
            'label' => "User naMe",
            'type' => 'select',
@@ -39,6 +50,7 @@ class QuestionCrudController extends CrudController
            'attribute' => 'name', // foreign key attribute that is shown to user
            'model' => "App\User" // foreign key model
         ]);
+
         $this->crud->addColumn([  // Select
            'label' => "Theme",
            'type' => 'select',
@@ -47,6 +59,7 @@ class QuestionCrudController extends CrudController
            'attribute' => 'name', // foreign key attribute that is shown to user
            'model' => "App\Models\Theme" // foreign key model
         ]);
+        
         $this->crud->addColumns(['pdd_links', 'feature', 'comments'] ); 
 
         // ------ CRUD FIELDS
@@ -60,8 +73,9 @@ class QuestionCrudController extends CrudController
             'label' => "Название вопроса"
         ]);
         $this->crud->addField([
-            'name' => 'img_id',
-            'label' => "Изображение вопроса"
+            'name' => 'img_url',
+            'label' => "Изображение вопроса",
+            'type' => 'browse'
         ]);
         $this->crud->addField([
             'name' => 'qty_answ',

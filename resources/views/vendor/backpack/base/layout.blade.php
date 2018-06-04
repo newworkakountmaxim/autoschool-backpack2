@@ -90,9 +90,7 @@
       @role('teacher')
         @include('backpack::teacher.sidebar')
       @endrole 
-      @role('user')
-        @include('backpack::user.sidebar')
-      @endrole 
+      
      
       <!-- =============================================== -->
 

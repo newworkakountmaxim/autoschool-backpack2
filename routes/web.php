@@ -30,3 +30,11 @@ Route::middleware(['guestMid'])->group(function () {
 });
 
 // Route::get('admin/dashboard', 'AdminController@dashboard')->name('backpack.dashboard')->middleware('can:dashboard');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');

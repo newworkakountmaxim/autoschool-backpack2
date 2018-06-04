@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Theme extends Model
+class Ticket extends Model
 {
     use CrudTrait;
 
@@ -15,11 +15,11 @@ class Theme extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'themes';
+    protected $table = 'tickets';
     protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'description', 'user_id'];
+    protected $fillable = ['name', 'rule', 'user_id', 'qty_qst', 'question_id', 'time', 'ball'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -28,11 +28,6 @@ class Theme extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
-     public function openGoogle($crud = false)
-    {
-        return '<a class="btn btn-xs btn-default" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="fa fa-search"></i> Google it</a>';
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -43,12 +38,14 @@ class Theme extends Model
     {
         return $this->belongsTo('App\User');
     }
-
     // public function question()
     // {
-    //     return $this->hasMany('App\Models\Question');
+    //     return $this->belongsTo('App\Models\Question');
     // }
-
+    public function question()
+    {
+        return $this->belongsTo('App\Models\Question');
+    }
 
     /*
     |--------------------------------------------------------------------------
