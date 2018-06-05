@@ -42,9 +42,20 @@ class Question extends Model
     {
         return $this->belongsTo('App\Models\Theme');
     }
-    public function ticket()
+
+    // $qu->tickets()->attach(1) // add
+    // $qu->tickets()->detach(1); // delete
+    // $qu->tickets()->sync([1, 2, 3]);
+
+    // $qu = App\Models\Question::where('id', 1)
+    // ->with('tickets')
+    // ->with('user')
+    // ->limit(10)
+    // ->get();
+
+    public function tickets()
     {
-        return $this->belongsTo('App\Models\Ticket');
+        return $this->belongsToMany('App\Models\Ticket', 'questions_tickets');
     }
     /*
     |--------------------------------------------------------------------------
