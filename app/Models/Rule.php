@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Ticket extends Model
+class Rule extends Model
 {
     use CrudTrait;
 
@@ -15,11 +15,11 @@ class Ticket extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'tickets';
+    protected $table = 'rules';
     protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'rule', 'user_id', 'qty_qst', 'question_id', 'time', 'ball'];
+    protected $fillable = ['name', 'user_id', 'qty_tickets', 'qty_qst', 'time', 'ball', 'description'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -34,22 +34,10 @@ class Ticket extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-    // public function question()
-    // {
-    //     return $this->belongsTo('App\Models\Question');
-    // }
-    // public function questions()
-    // {
-    //     return $this->belongsTo('App\Models\Question');
-    // }
-
-    public function questions()
-    {
-        return $this->belongsToMany('App\Models\Question');
     }
 
     /*

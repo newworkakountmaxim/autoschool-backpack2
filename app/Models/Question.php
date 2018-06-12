@@ -55,7 +55,7 @@ class Question extends Model
 
     public function tickets()
     {
-        return $this->belongsToMany('App\Models\Ticket', 'questions_tickets');
+        return $this->belongsToMany('App\Models\Ticket');
     }
     /*
     |--------------------------------------------------------------------------

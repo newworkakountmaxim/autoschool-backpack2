@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use App\Models\Question;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\TicketRequest as StoreRequest;
-use App\Http\Requests\TicketRequest as UpdateRequest;
+use App\Http\Requests\RuleRequest as StoreRequest;
+use App\Http\Requests\RuleRequest as UpdateRequest;
 
-class TicketCrudController extends CrudController
+class RuleCrudController extends CrudController
 {
     public function setup()
     {
@@ -19,9 +18,9 @@ class TicketCrudController extends CrudController
         | BASIC CRUD INFORMATION
         |--------------------------------------------------------------------------
         */
-        $this->crud->setModel('App\Models\Ticket');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/ticket');
-        $this->crud->setEntityNameStrings('ticket', 'tickets');
+        $this->crud->setModel('App\Models\Rule');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/rule');
+        $this->crud->setEntityNameStrings('rule', 'rules');
 
         /*
         |--------------------------------------------------------------------------
@@ -29,97 +28,14 @@ class TicketCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        //$this->crud->setFromDb();
+        $this->crud->setFromDb();
 
-        
-        $this->crud->addColumn('name');
-        
-        $this->crud->addColumn([  // Select
-           // 'label' => "Questions",
-           // 'key' => 'question_id',
-           // 'type' => 'select2_multiple',
-           // 'name' => 'question_id', // the db column for the foreign key
-           // 'entity' => 'questions', // the method that defines the relationship in your Model
-           // 'attribute' => 'name', // foreign key attribute that is shown to user
-           // 'model' => "App\Models\Question", // foreign key model
-           // 'pivot' => true
-            // n-n relationship (with pivot table)
-           'label' => "Questions", // Table column heading
-           'type' => "select_multiple",
-           'name' => 'questions', // the method that defines the relationship in your Model
-           'entity' => 'questions', // the method that defines the relationship in your Model
-           'attribute' => "name", // foreign key attribute that is shown to user
-           'model' => "App\Models\Question", // foreign key model
-        ]);
-        //$this->crud->addColumn('question_id');
-
-        $this->crud->addColumn([  // Select
-           'label' => "User naMe",
-           'key' => 'user_id',
-           'type' => 'select',
-           'name' => 'user_id', // the db column for the foreign key
-           'entity' => 'user', // the method that defines the relationship in your Model
-           'attribute' => 'name', // foreign key attribute that is shown to user
-           'model' => "App\User" // foreign key model
-        ]);
-
-        $this->crud->addColumn('rule');
-        $this->crud->addColumn('qty_qst');
-        $this->crud->addColumn('ball');
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
         // $this->crud->addFields($array_of_arrays, 'update/create/both');
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
 
-
-        $this->crud->addField([
-            'name' => 'name',
-            'label' => "Название вопроса"
-        ]);
-        $this->crud->addField([
-            'name' => 'rule',
-            'label' => "rrule"
-        ]);
-        $this->crud->addField([
-            'name' => 'qty_qst',
-            'label' => "qty_qst"
-        ]);
-        $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
-            'label' => "Автор",
-            'type' => 'select2',
-            'name' => 'user_id', // the method that defines the relationship in your Model
-            'entity' => 'user', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\User", // foreign key model
-            //'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-        ]);
-
-        $this->crud->addField([  // Select
-           'label' => "Questions",
-           'type' => 'select2',
-           'name' => 'question_id', // the db column for the foreign key
-           'entity' => 'questions', // the method that defines the relationship in your Model
-           'attribute' => 'name', // foreign key attribute that is shown to user
-           'model' => "App\Models\Question", // foreign key model
-           //'pivot' => true
-           'label' => "Questions",
-           'type' => 'select2_multiple',
-           'name' => 'questions', // the method that defines the relationship in your Model           
-           'entity' => 'questions', // the method that defines the relationship in your Model
-           'attribute' => 'name', // foreign key attribute that is shown to user
-           'model' => "App\Models\Question", // foreign key model
-           'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-        ]);
-
-        $this->crud->addField([
-            'name' => 'time',
-            'label' => "time"
-        ]);
-        $this->crud->addField([
-            'name' => 'ball',
-            'label' => "ball"
-        ]);
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
         // $this->crud->addColumns(); // add multiple columns, at the end of the stack
@@ -190,9 +106,6 @@ class TicketCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
-        // $input = $request->only('name','question_id', 'user_id');
-        // Ticket::create($input);
-        // var_dump($input);
     }
 
     public function update(UpdateRequest $request)
@@ -203,4 +116,13 @@ class TicketCrudController extends CrudController
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
     }
+
+    /**
+     * My function generateTickets.
+     *
+     * These middleware are run during every request to your application.
+     *
+     * @var array
+     */
+    
 }

@@ -18,16 +18,16 @@ class CreateQuestionsTable extends Migration
             $table->string('img_url');
             $table->string('qty_answ');
             $table->string('cor_answ');
-            $table->string('answers');
-            $table->integer('user_id')->unsigned();
-            $table->integer('theme_id')->unsigned();
+            $table->string('answers');           
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('theme_id')->unsigned()->nullable();
             $table->string('pdd_links');
             $table->string('feature');
             $table->string('comments');            
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('theme_id')->references('id')->on('themes');
+            $table->foreign('theme_id')->references('id')->on('themes');            
         });
     }
 
@@ -41,8 +41,9 @@ class CreateQuestionsTable extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::table('questions', function (Blueprint $table) {
           $table->dropForeign(['user_id']);
-          $table->dropForeign(['theme_id']);
+          $table->dropForeign(['theme_id']);         
         });
+
         Schema::dropIfExists('questions');
         Schema::enableForeignKeyConstraints();
     }

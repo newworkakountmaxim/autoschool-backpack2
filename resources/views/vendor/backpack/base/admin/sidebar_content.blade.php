@@ -40,8 +40,8 @@
 <li class="treeview">
     <a href="#"><i class="fa fa-align-left"></i> <span>Формирование билетов</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
-      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/1theme') }}"><i class="fa fa-eye"></i> <span>Все правила</span></a></li>
-        <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/1theme/create') }}"><i class="fa fa-plus"></i> <span>Новое правило</span></a></li>     
+      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/rule') }}"><i class="fa fa-eye"></i> <span>Все правила</span></a></li>
+        <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/rule/create') }}"><i class="fa fa-plus"></i> <span>Новое правило</span></a></li>     
     </ul>
 </li>
   
