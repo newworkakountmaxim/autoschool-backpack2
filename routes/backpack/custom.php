@@ -9,7 +9,8 @@
 Route::group(
 	[
 	    'prefix'     => config('backpack.base.route_prefix', 'admin'),
-	    'middleware' => ['web', config('backpack.base.middleware_key', 'admin')],
+	    // 'middleware' => ['web', config('backpack.base.middleware_key', 'admin')],
+	    'middleware' => ['web', backpack_middleware(), 'can:adminka'],
 	    'namespace'  => 'App\Http\Controllers\Admin',
 	],	
 	

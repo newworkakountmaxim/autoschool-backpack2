@@ -17,9 +17,10 @@ class GuestMiddleware
     public function handle($request, Closure $next)
     {
       $user = Auth::user();
-        if($user && $user->hasRole('superadmin')){
+        if( ($user && $user->hasRole('superadmin')) || ($user && $user->hasRole('teacher'))  ){
           return $next($request);
         }
-        return redirect('/');
+        return response()->view('errors.403');
+        //return redirect('/');
     }
 }

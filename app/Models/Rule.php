@@ -45,6 +45,16 @@ class Rule extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function openGoogle($crud = false)
+    {
+        return '<a class="btn btn-xs btn-default" target="_blank" href="http://google.com?q='.urlencode($this->user->name).'" data-toggle="tooltip" title="Just a demo custom button."><i class="fa fa-search"></i> Google it</a>';
+        //return $this;
+    }
+    public function getSlugWithLink() {
+        //return '<a href="'.url($this->ball).'" target="_blank">'.$this->ball.'</a>';
+        return '<a class="btn btn-xs btn-default" href="'.url('/admin/rule/'.$this->id.'/user_func').'" target="_blank">Выполнить правило с ИД'.$this->id.'</a>';
+    }
+
 
     /*
     |--------------------------------------------------------------------------

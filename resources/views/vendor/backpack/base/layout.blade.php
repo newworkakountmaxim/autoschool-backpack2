@@ -76,7 +76,9 @@
           </a>
           @role('superadmin')
               @include('backpack::admin.menu')
-          @else
+          @endrole
+
+          @role('teacher')
             @include('backpack::teacher.menu')
           @endrole
 
@@ -87,9 +89,14 @@
       @role('superadmin')
         @include('backpack::admin.sidebar')
       @endrole
+
       @role('teacher')
         @include('backpack::teacher.sidebar')
       @endrole 
+      
+
+      
+
       
      
       <!-- =============================================== -->
@@ -101,9 +108,18 @@
 
         <!-- Main content -->
         <section class="content">
+ 
 
-          @yield('content')
+          @role('user')
+            @yield('content-user')
+          @else
+            @yield('content')
+          @endrole 
 
+
+          
+
+         
         </section>
         <!-- /.content -->
       </div>

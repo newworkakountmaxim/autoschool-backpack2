@@ -97,6 +97,21 @@ class RuleCrudController extends CrudController
         // $this->crud->orderBy();
         // $this->crud->groupBy();
         // $this->crud->limit();
+
+        $this->crud->addButtonFromModelFunction('line', 'open_google', 'openGoogle', 'beginning'); // add a button whose HTML is returned by a method in the CRUD model
+        $this->crud->addButton('line', '', 'model_function', 'getSlugWithLink', 'end');
+        // $this->crud->addColumn([
+        //    // run a function on the CRUD model and show its return value
+        //    'name' => "url",
+        //    'label' => "URL", // Table column heading
+        //    'type' => "model_function",
+        //    'function_name' => 'getSlugWithLink', // the method in your Model
+        //    // 'limit' => 100, // Limit the number of characters shown
+        // ]);
+        
+
+        //$this->crud->enableShow();
+        // $this->crud->addShowColumn();
     }
 
     public function store(StoreRequest $request)

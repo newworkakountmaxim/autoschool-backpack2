@@ -92,25 +92,22 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">Главная</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}">Логин</a>
+                        <a href="{{ route('register') }}">Регистрация</a>
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Автошкола наброски v2
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <h4>Для входа ПРИВИЛЕГИРО́ВАННЫХ пользователей перейдите <strong>public/admin</strong>.</h4>
+                    <h4>Для входа как обычный посетитель входим в клиентскую часть <strong>public/login</strong> (там еще пока почти ничего нет)</h4>
                 </div>
             </div>
         </div>

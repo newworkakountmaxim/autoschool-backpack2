@@ -4,7 +4,7 @@
         <!-- ========== Top menu items (ordered left) ========== -->
         <!-- =================================================== -->
 
-        <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> <span>Главная Админ</span></a></li>
+        <li><a href="{{ backpack_url('dashboard') }}"><i class="fa fa-home"></i> <span>Главная Преподаватель</span></a></li>
 
         <!-- ========== End of top menu left items ========== -->
     </ul>

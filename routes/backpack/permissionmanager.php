@@ -18,6 +18,8 @@ Route::group([
         CRUD::resource('permission', 'PermissionCrudController');
         CRUD::resource('role', 'RoleCrudController');
         CRUD::resource('user', 'UserCrudController');
+
+        
     });
 
 
