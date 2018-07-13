@@ -26,7 +26,12 @@ class TicketRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:5|max:255',            
+            'user_id' => 'required',
+            //'question_id' => 'required',
+            'time' => 'required|integer',
+            'ball' => 'required|integer',
+            'qty_qst' => 'required|integer'
         ];
     }
 

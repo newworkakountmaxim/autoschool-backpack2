@@ -35,7 +35,7 @@ class CreateRulesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::table('questions', function (Blueprint $table) {
+        Schema::table('rules', function (Blueprint $table) {
           $table->dropForeign(['user_id']);                 
         });
 

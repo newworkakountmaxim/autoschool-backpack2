@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use Auth for User id
+use Illuminate\Support\Facades\Auth;
+use App\User;
+use App\Models\Rule;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $rules = User::find(Auth::user()->id);
+        $a = $rules->theme()->get();
+        return view('home')->withA($a);
+        //return view('home');
+        //dd($a);
+        
+        //return redirect('user/question');
+        //var_dump(Auth::user()->email);
     }
 }

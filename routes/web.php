@@ -23,7 +23,9 @@ Route::get('/', function () {
 
 Route::middleware(['guestMid'])->group(function () {
     Route::resource('guest', 'TicketsController');
-    Route::resource('admin/rule/{id}/user_func', 'RulesController');
+    //Route::get('admin/rule/{id}/user_func', 'Admin\RuleCrudController@user_func');
+    
+
     // Route::get('/guest', function () {
     //   return 'welcome guset';
     // });
@@ -35,6 +37,8 @@ Route::middleware(['guestMid'])->group(function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::get('rules', 'RulesController@index');
 
 //Route::get('/admin/rule/{id}/user_func', 'HomeController@index')->name('home');
 

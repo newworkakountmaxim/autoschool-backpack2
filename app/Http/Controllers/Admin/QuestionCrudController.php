@@ -21,7 +21,7 @@ class QuestionCrudController extends CrudController
         */
         $this->crud->setModel('App\Models\Question');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/question');
-        $this->crud->setEntityNameStrings('question', 'questions');
+        $this->crud->setEntityNameStrings('вопрос', 'вопросы');
 
         /*
         |--------------------------------------------------------------------------
@@ -30,20 +30,41 @@ class QuestionCrudController extends CrudController
         */
 
         //$this->crud->setFromDb();]
-        $this->crud->addColumn('name');
+        $this->crud->addColumn([
+            'name' => 'name',
+            'label' => "Название",
+        ]);
         
         $this->crud->addColumn([
             'name' => 'img_url', // The db column name
             'label' => "Изображение", // Table column heading
-            'type' => 'image',                      
-            'height' => '80px',
-            'width' => '80px'
+            // 'type' => 'image',                      
+            // 'height' => '80px',
+            // 'width' => '80px'
+            'type' => 'closure',
+            'function' => function($entry) {
+                return '<img style="width:80px" src="'.url($entry->img_url).'">';
+            },
+        ]);        
+        $this->crud->addColumn([
+            'name' => 'qty_answ',
+            'label' => "Кол-во ответов",
+        ]);
+        $this->crud->addColumn([
+            'name' => 'cor_answ',
+            'label' => "№ правильного",
+        ]);
+        $this->crud->addColumn([
+            'name' => 'answers',
+            'type' => 'closure',
+            'function' => function($entry) {
+                return '<div style="max-width:300px">'.$entry->answers.'</div>';
+            },
+            'label' => "Ответы",
         ]);
 
-        $this->crud->addColumns(['qty_answ', 'cor_answ', 'answers'] );
-
         $this->crud->addColumn([  // Select
-           'label' => "User naMe",
+           'label' => "Автор",
            'type' => 'select',
            'name' => 'user_id', // the db column for the foreign key
            'entity' => 'user', // the method that defines the relationship in your Model
@@ -52,7 +73,7 @@ class QuestionCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([  // Select
-           'label' => "Theme",
+           'label' => "Тема",
            'type' => 'select',
            'name' => 'theme_id', // the db column for the foreign key
            'entity' => 'theme', // the method that defines the relationship in your Model
@@ -61,6 +82,18 @@ class QuestionCrudController extends CrudController
         ]);
         
         $this->crud->addColumns(['pdd_links', 'feature', 'comments'] ); 
+        $this->crud->addColumn([
+            'name' => 'pdd_links',
+            'label' => "Ссылки на ПДД",
+        ]);
+        $this->crud->addColumn([
+            'name' => 'feature',
+            'label' => "Доп. обозн.",
+        ]);
+        $this->crud->addColumn([
+            'name' => 'comments',
+            'label' => "Комментарии",
+        ]);
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
@@ -95,7 +128,7 @@ class QuestionCrudController extends CrudController
             'type' => 'select2',
             'name' => 'user_id', // the method that defines the relationship in your Model
             'entity' => 'user', // the method that defines the relationship in your Model
-            'attribute' => 'id', // foreign key attribute that is shown to user
+            'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\User", // foreign key model
             //'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
@@ -105,7 +138,7 @@ class QuestionCrudController extends CrudController
             'type' => 'select2',
             'name' => 'theme_id', // the method that defines the relationship in your Model
             'entity' => 'theme', // the method that defines the relationship in your Model
-            'attribute' => 'id', // foreign key attribute that is shown to user
+            'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\Theme", // foreign key model
             //'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
@@ -158,16 +191,105 @@ class QuestionCrudController extends CrudController
         // Please check out: https://laravel-backpack.readme.io/docs/crud#revisions
         // $this->crud->allowAccess('revisions');
 
+
+        $this->crud->addFilter([ // select2 filter
+          'name' => 'theme_id',
+          'type' => 'select2',
+          'label'=> 'ТЕМА'
+        ], function() {
+            return \App\Models\Theme::all()->pluck('name', 'id')->toArray();
+        }, function($value) { // if the filter is active
+                $this->crud->addClause('where', 'theme_id', $value);
+        });
+// ////////////////////////////////////////
+        $this->crud->addFilter([ // select2 filter
+          'name' => 'user_id',
+          'type' => 'select2',
+          'label'=> 'АВТОР'
+        ], function() {
+            return \App\User::all()->pluck('name', 'id')->toArray();
+        }, function($value) { // if the filter is active
+                $this->crud->addClause('where', 'user_id', $value);
+        });
+// /////////////////////////////////////
+
+
+
+
+        // $this->crud->addFilter([ // select2 filter
+        //   'name' => 'qty_answ',
+        //   'type' => 'select2',
+        //   'label'=> 'qty_answers'
+        // ], function($value) { // if the filter is active
+        //         $this->crud->addClause('where', 'qty_answ', $value);
+        // });
+
+        
+
+        // $this->crud->addFilter([ // simple filter
+        //   'type' => 'text',
+        //   'name' => 'eqty_answers',
+        //   'label'=> 'Description'
+        // ], 
+        // true, 
+        // function($value) { // if the filter is active
+        //     $this->crud->addClause('where', 'qty_answers', 'LIKE', "%$value%");
+        // } );
+
+        // $this->crud->addFilter([ // select2_multiple filter
+        //   'name' => 'theme_id',
+        //   'type' => 'select2_multiple',
+        //   'label'=> 'Tags'
+        // ],
+        // //true,
+        // function() { // the options that show up in the select2
+        //     return \App\Models\Theme::all()->pluck('name', 'id')->toArray();
+        // }, function($values) { // if the filter is active
+        //     foreach (json_decode($values) as $key => $value) {
+        //         $this->crud->query = $this->crud->query->whereHas('theme_id', function ($query) use ($value) {
+        //             $query->where('theme_id', $value);
+        //         });
+        //     }
+        // });
+
+
+
+        // Это фильтры!! Они заработают как только отформатирую дату
+        $this->crud->addFilter([ // daterange filter
+           'type' => 'date_range',
+           'name' => 'from_to',
+           'label'=> 'Промежуток дат'
+         ],
+         true,
+         function($value) { // if the filter is active, apply these constraints
+           $dates = json_decode($value);
+           $this->crud->addClause('where', 'created_at', '>=', $dates->from);
+           $this->crud->addClause('where', 'created_at', '<=', $dates->to);
+         });
+
+          $this->crud->addFilter([ // date filter
+          'type' => 'date',
+          'name' => 'date',
+          'label'=> 'Дата'
+        ],
+        false,
+        function($value) { // if the filter is active, apply these constraints
+           $this->crud->addClause('where', 'created_at', '=', $value);
+        });
+        //Конец. Это фильтры!! Они заработают как только отформатирую дату
+
         // ------ AJAX TABLE VIEW
         // Please note the drawbacks of this though:
         // - 1-n and n-n columns are not searchable
         // - date and datetime columns won't be sortable anymore
-        // $this->crud->enableAjaxTable();
+         $this->crud->enableAjaxTable();
 
         // ------ DATATABLE EXPORT BUTTONS
         // Show export to PDF, CSV, XLS and Print buttons on the table view.
         // Does not work well with AJAX datatables.
-        // $this->crud->enableExportButtons();
+        $this->crud->enableExportButtons();
+
+        $this->crud->addButton('line', 'showItem', 'model_function', 'showItem', 'beginning');
 
         // ------ ADVANCED QUERIES
         // $this->crud->addClause('active');
@@ -183,6 +305,37 @@ class QuestionCrudController extends CrudController
         // $this->crud->orderBy();
         // $this->crud->groupBy();
         // $this->crud->limit();
+    }
+
+
+    public function show($id)
+    {
+        //$this->crud->hasAccessOrFail('show');
+        // get entry ID from Request (makes sure its the last ID for nested resources)
+        $id = $this->crud->getCurrentEntryId() ?? $id;
+        // set columns from db
+        $this->crud->setFromDb();
+        // cycle through columns
+        foreach ($this->crud->columns as $key => $column) {
+            // remove any autoset relationship columns
+            if (array_key_exists('model', $column) && array_key_exists('autoset', $column) && $column['autoset']) {
+                $this->crud->removeColumn($column['name']);
+            }
+            // remove the row_number column, since it doesn't make sense in this context
+            if ($column['type'] == 'row_number') {
+                $this->crud->removeColumn($column['name']);
+            }
+        }
+        // get the info for that entry
+        $this->data['entry'] = $this->crud->getEntry($id);
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = trans('backpack::crud.preview').' '.$this->crud->entity_name;
+        // remove preview button from stack:line
+        $this->crud->removeButton('preview');
+        $this->crud->removeButton('delete');
+        $this->crud->removeButton('showItem');
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        return view($this->crud->getShowView(), $this->data);
     }
 
     public function store(StoreRequest $request)

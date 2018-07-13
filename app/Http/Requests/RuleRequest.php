@@ -26,7 +26,14 @@ class RuleRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:5|max:255',            
+            'user_id' => 'required',
+            //'question_id' => 'required',
+            'qty_tickets' => 'required|integer',            
+            'qty_qst' => 'required|integer',
+            'ball' => 'required|integer',
+            'time' => 'required|integer',
+            'description' => 'required|min:5|max:255'
         ];
     }
 

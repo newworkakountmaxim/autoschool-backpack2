@@ -43,8 +43,8 @@
   <body>
     <div class="container">
       <div class="content">
-        <div class="title">403</div>
-        <div class="quote">Forbidden.</div>
+        <div class="title"><strong>403</strong></div>
+        <div class="quote"><strong>НЕТ ПРАВ - НЕТ ДОСТУПА</strong></div>
         <div class="explanation">
           <br>
           <small>

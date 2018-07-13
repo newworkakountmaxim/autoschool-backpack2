@@ -58,6 +58,11 @@ class Ticket extends Model
     |--------------------------------------------------------------------------
     */
 
+     public function showItem($crud = false)
+    {
+        return '<a class="btn  btn-success" href="'.url('/admin/ticket/'.$this->id).'" data-toggle="tooltip" title="ПРОСМОТРЕТЬ"><i class="fa fa-search"></i> ПРОСМОТРЕТЬ</a>';        
+    }
+
     /*
     |--------------------------------------------------------------------------
     | ACCESORS

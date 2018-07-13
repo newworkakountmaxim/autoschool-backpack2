@@ -48,6 +48,10 @@ class Theme extends Model
     // {
     //     return $this->hasMany('App\Models\Question');
     // }
+    // public function tickets()
+    // {
+    //     return $this->belongsToMany('App\Models\Ticket');
+    // }
 
 
     /*

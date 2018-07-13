@@ -33,6 +33,7 @@
     <!-- BackPack Base CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/backpack/backpack.base.css') }}?v=2">
     <link rel="stylesheet" href="{{ asset('vendor/backpack/overlays/backpack.bold.css') }}">
+    <style type="text/css"> td {white-space: normal !important}</style>
 
     @yield('after_styles')
     @stack('after_styles')
@@ -110,11 +111,11 @@
         <section class="content">
  
 
-          @role('user')
-            @yield('content-user')
-          @else
+          <!-- role('user')
+            yield('content-user')
+          else -->
             @yield('content')
-          @endrole 
+         <!--  endrole  -->
 
 
           
@@ -128,10 +129,10 @@
       <footer class="main-footer">
         @if (config('backpack.base.show_powered_by'))
             <div class="pull-right hidden-xs">
-              {{ trans('backpack::base.powered_by') }} <a target="_blank" href="http://backpackforlaravel.com?ref=panel_footer_link">Backpack for Laravel</a>
+              {{ trans('backpack::base.powered_by') }} <a target="_blank" href="">Backpack for Laravel</a>
             </div>
         @endif
-        {{ trans('backpack::base.handcrafted_by') }} <a target="_blank" href="{{ config('backpack.base.developer_link') }}">{{ config('backpack.base.developer_name') }}</a>.
+        <!-- trans('backpack::base.handcrafted_by')  -->  Author <a target="_blank" href="{{ config('backpack.base.developer_link') }}">{{ config('backpack.base.developer_name') }}</a>.
       </footer>
     </div>
     <!-- ./wrapper -->

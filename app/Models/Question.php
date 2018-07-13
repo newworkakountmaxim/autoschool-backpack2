@@ -57,6 +57,17 @@ class Question extends Model
     {
         return $this->belongsToMany('App\Models\Ticket');
     }
+
+
+    public function showItem($crud = false)
+    {
+        return '<a class="btn  btn-success" href="'.url('/admin/question/'.$this->id).'" data-toggle="tooltip" title="ПРОСМОТРЕТЬ"><i class="fa fa-search"></i> ПРОСМОТРЕТЬ</a>';        
+    }
+
+    public function showItemForUser($crud = false)
+    {
+        return '<a class="btn  btn-success" href="'.url('/user/question/'.$this->id).'" data-toggle="tooltip" title="ПРОСМОТРЕТЬ"><i class="fa fa-search"></i> ПРОСМОТРЕТЬ</a>';        
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

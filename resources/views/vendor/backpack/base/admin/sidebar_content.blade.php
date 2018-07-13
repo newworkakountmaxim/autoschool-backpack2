@@ -45,4 +45,30 @@
         <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/rule/create') }}"><i class="fa fa-plus"></i> <span>Новое правило</span></a></li>     
     </ul>
 </li>
+
+<li class="treeview">
+    <a href="#"><i class="fa fa-align-left"></i> <span>Формирование тест SQL</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/rawrule') }}"><i class="fa fa-eye"></i> <span>Все правила SQL</span></a></li>
+        <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/rawrule/create') }}"><i class="fa fa-plus"></i> <span>Новое правило SQL</span></a></li>     
+    </ul>
+</li>
+
+<li class="treeview">
+    <a href="#"><i class="fa fa-align-left"></i> <span>Группы студентов</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/stgroup') }}"><i class="fa fa-eye"></i> <span>Все группы студентов</span></a></li>
+        <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/stgroup/create') }}"><i class="fa fa-plus"></i> <span>Новая группа студентов</span></a></li>     
+    </ul>
+</li>
+
+<li class="treeview">
+    <a href="#"><i class="fa fa-align-left"></i> <span>Студенты</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/student') }}"><i class="fa fa-eye"></i> <span>Все студенты</span></a></li>
+        <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/student/create') }}"><i class="fa fa-plus"></i> <span>Добавить студента(из Юзеров!)</span></a></li>     
+    </ul>
+</li>
+
+<li><a href='{{ url(config('backpack.base.route_prefix', 'admin').'/log') }}'><i class='fa fa-terminal'></i> <span>Logs</span></a></li>
   

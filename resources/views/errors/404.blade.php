@@ -43,8 +43,8 @@
   <body>
     <div class="container">
       <div class="content">
-        <div class="title">404</div>
-        <div class="quote">Page not found.</div>
+        <div class="title"><strong>404</strong></div>
+        <div class="quote"><strong>Страница не найдена</strong></div>
         <div class="explanation">
           <br>
           <small>

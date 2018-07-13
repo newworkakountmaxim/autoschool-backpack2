@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "backpack/base": "^0.9.5",
         "backpack/crud": "^3.4",
+        "backpack/logmanager": "^2.3",
         "backpack/permissionmanager": "^2.1",
         "barryvdh/laravel-elfinder": "^0.3.12",
         "fideloper/proxy": "~3.3",

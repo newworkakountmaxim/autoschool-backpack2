@@ -98,8 +98,8 @@
     </div>
 @endsection
 
-
-@section('content-user')
+<!-- 
+section('content-user')
   <h2>Например контент для еще какой-то роли "User"</h2>
 
-@endsection
+endsection -->

@@ -26,7 +26,16 @@ class QuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|max:255',
+            'img_url' => 'required|',
+            'qty_answ' => 'required|integer',
+            'cor_answ' => 'required|integer',
+            'answers' => 'required|min:5|max:255',
+            'user_id' => 'required',
+            'theme_id' => 'required',
+            'pdd_links' => 'required|min:5|max:255',
+            'feature' => 'required|min:5|max:255',
+            'comments' => 'required|min:5|max:255'
         ];
     }
 
@@ -38,7 +47,9 @@ class QuestionRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            // 'name' => 'Имя',
+            // 'img_url' => 'Изображение',
+            // 'qty_answ' => 'Кол-во ответов',
         ];
     }
 
@@ -50,7 +61,7 @@ class QuestionRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            
         ];
     }
 }

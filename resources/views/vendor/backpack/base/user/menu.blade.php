@@ -4,7 +4,11 @@
         <!-- ========== Top menu items (ordered left) ========== -->
         <!-- =================================================== -->
 
-        <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> <span>Home Admin</span></a></li>
+        <li><a href="{{ backpack_url('dashboard') }}"><i class="fa fa-home"></i> <span>Главная Админ</span></a></li>
+
+        <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/user') }}"><i class="fa fa-user"></i> <span>Пользователи</span></a></li>
+        <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/role') }}"><i class="fa fa-group"></i> <span>Роли</span></a></li>
+        <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/permission') }}"><i class="fa fa-key"></i> <span>Права</span></a></li>
 
         <!-- ========== End of top menu left items ========== -->
     </ul>

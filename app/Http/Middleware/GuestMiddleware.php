@@ -20,7 +20,7 @@ class GuestMiddleware
         if( ($user && $user->hasRole('superadmin')) || ($user && $user->hasRole('teacher'))  ){
           return $next($request);
         }
-        return response()->view('errors.403');
+        return response()->view('errors.404');
         //return redirect('/');
     }
 }

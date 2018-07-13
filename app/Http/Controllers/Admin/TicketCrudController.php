@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Models\Question;
+use App\Models\Ticket;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\TicketRequest as StoreRequest;
@@ -21,7 +22,7 @@ class TicketCrudController extends CrudController
         */
         $this->crud->setModel('App\Models\Ticket');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/ticket');
-        $this->crud->setEntityNameStrings('ticket', 'tickets');
+        $this->crud->setEntityNameStrings('Билет', 'Билеты');
 
         /*
         |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ class TicketCrudController extends CrudController
            // 'model' => "App\Models\Question", // foreign key model
            // 'pivot' => true
             // n-n relationship (with pivot table)
-           'label' => "Questions", // Table column heading
+           'label' => "Вопросы", // Table column heading
            'type' => "select_multiple",
            'name' => 'questions', // the method that defines the relationship in your Model
            'entity' => 'questions', // the method that defines the relationship in your Model
@@ -54,7 +55,7 @@ class TicketCrudController extends CrudController
         //$this->crud->addColumn('question_id');
 
         $this->crud->addColumn([  // Select
-           'label' => "User naMe",
+           'label' => "Автор",
            'key' => 'user_id',
            'type' => 'select',
            'name' => 'user_id', // the db column for the foreign key
@@ -64,9 +65,22 @@ class TicketCrudController extends CrudController
         ]);
         
           
-        $this->crud->addColumn('rule');
-        $this->crud->addColumn('qty_qst');
-        $this->crud->addColumn('ball');
+        $this->crud->addColumn([
+            'name' => 'rule',
+            'label' => "Правило"           
+        ]);
+        $this->crud->addColumn([
+            'name' => 'qty_qst',
+            'label' => "Кол-во вопросов",
+        ]);
+        $this->crud->addColumn([
+            'name' => 'ball',
+            'label' => "Балы",
+        ]);
+
+
+
+        
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
         // $this->crud->addFields($array_of_arrays, 'update/create/both');
@@ -78,13 +92,14 @@ class TicketCrudController extends CrudController
             'name' => 'name',
             'label' => "Название вопроса"
         ]);
-        $this->crud->addField([
-            'name' => 'rule',
-            'label' => "rrule"
-        ]);
+        // $this->crud->addField([
+        //     'name' => 'rule',
+        //     'label' => "Правило",
+        //     'default' => '0',
+        // ]);
         $this->crud->addField([
             'name' => 'qty_qst',
-            'label' => "qty_qst"
+            'label' => "Кол-во вопросов"
         ]);
         $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
             'label' => "Автор",
@@ -96,15 +111,8 @@ class TicketCrudController extends CrudController
             //'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
         ]);
 
-        $this->crud->addField([  // Select
-           'label' => "Questions",
-           'type' => 'select2',
-           'name' => 'question_id', // the db column for the foreign key
-           'entity' => 'questions', // the method that defines the relationship in your Model
-           'attribute' => 'name', // foreign key attribute that is shown to user
-           'model' => "App\Models\Question", // foreign key model
-           //'pivot' => true
-           'label' => "Questions",
+        $this->crud->addField([  // Select           
+           'label' => "Вопросы",
            'type' => 'select2_multiple',
            'name' => 'questions', // the method that defines the relationship in your Model           
            'entity' => 'questions', // the method that defines the relationship in your Model
@@ -115,11 +123,11 @@ class TicketCrudController extends CrudController
 
         $this->crud->addField([
             'name' => 'time',
-            'label' => "time"
+            'label' => "Время"
         ]);
         $this->crud->addField([
             'name' => 'ball',
-            'label' => "ball"
+            'label' => "Балы"
         ]);
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
@@ -148,10 +156,66 @@ class TicketCrudController extends CrudController
         // NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('reorder');
 
         // ------ CRUD DETAILS ROW
-        $this->crud->enableDetailsRow();
+        //$this->crud->enableDetailsRow();
         // NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('details_row');
         // NOTE: you also need to do overwrite the showDetailsRow($id) method in your EntityCrudController to show whatever you'd like in the details row OR overwrite the views/backpack/crud/details_row.blade.php
+        // $this->crud->addFilter([ // select2_multiple filter
+        //   'name' => 'tags',
+        //   'type' => 'select2_multiple',
+        //   'label'=> 'Tags'
+        // ], function() { // the options that show up in the select2
+        //     return Question::all()->pluck('id')->toArray();
+        // }, function($values) { // if the filter is active
+        //     foreach (json_decode($values) as $key => $value) {
+        //         $this->crud->query = $this->crud->query->whereHas('tags', function ($query) use ($value) {
+        //             $query->where('ticket_id', $value);
+        //         });
+        //     }
+        // });
 
+
+        $this->crud->addFilter([ // select2 filter
+          'name' => 'user_id',
+          'type' => 'select2',
+          'label'=> 'АВТОР'
+        ], function() {
+            return \App\User::all()->pluck('name', 'id')->toArray();
+        }, function($value) { // if the filter is active
+                $this->crud->addClause('where', 'user_id', $value);
+        });
+
+
+        $this->crud->addFilter([ // select2 filter
+          'name' => 'rule',
+          'type' => 'select2',
+          'label'=> 'ПРАВИЛО ФОРМИРОВАНИЯ'
+        ], function() {
+            return \App\Models\Rule::all()->pluck('name', 'id')->toArray();
+        }, function($value) { // if the filter is active
+                $this->crud->addClause('where', 'rule', $value);
+        });
+
+        // $this->crud->addFilter([ // select2 filter
+        //   'name' => 'qty_qst',
+        //   'type' => 'select2',
+        //   'label'=> 'qty_qst'
+        // ], function() {
+        //     return \App\Models\Ticket::all()->pluck('qty_qst')->toArray();
+        // }, function($value) { // if the filter is active
+        //         $this->crud->addClause('where', 'qty_qst', $value);
+        // });
+
+
+
+        // $this->crud->addFilter([ // simple filter
+        //   'type' => 'text',
+        //   'name' => 'rule',
+        //   'label'=> 'ПРАВИЛО ФОРМИРОВАНИЯ'
+        // ], 
+        // false, 
+        // function($value) { // if the filter is active
+        //     $this->crud->addClause('where', 'rule', 'LIKE', "%$value%");
+        // } );
         // ------ REVISIONS
         // You also need to use \Venturecraft\Revisionable\RevisionableTrait;
         // Please check out: https://laravel-backpack.readme.io/docs/crud#revisions
@@ -167,6 +231,8 @@ class TicketCrudController extends CrudController
         // Show export to PDF, CSV, XLS and Print buttons on the table view.
         // Does not work well with AJAX datatables.
         $this->crud->enableExportButtons();
+        $this->crud->addButton('line', 'showItem', 'model_function', 'showItem', 'beginning');    
+
 
         // ------ ADVANCED QUERIES
         // $this->crud->addClause('active');
@@ -184,16 +250,44 @@ class TicketCrudController extends CrudController
         // $this->crud->limit();
     }
 
+
+   public function show($id)
+    {
+        //$this->crud->hasAccessOrFail('show');
+        // get entry ID from Request (makes sure its the last ID for nested resources)
+        $id = $this->crud->getCurrentEntryId() ?? $id;
+        // set columns from db
+        $this->crud->setFromDb();
+        // cycle through columns
+        foreach ($this->crud->columns as $key => $column) {
+            // remove any autoset relationship columns
+            if (array_key_exists('model', $column) && array_key_exists('autoset', $column) && $column['autoset']) {
+                $this->crud->removeColumn($column['name']);
+            }
+            // remove the row_number column, since it doesn't make sense in this context
+            if ($column['type'] == 'row_number') {
+                $this->crud->removeColumn($column['name']);
+            }
+        }
+        // get the info for that entry
+        $this->data['entry'] = $this->crud->getEntry($id);
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = trans('backpack::crud.preview').' '.$this->crud->entity_name;
+        // remove preview button from stack:line
+        $this->crud->removeButton('preview');
+        $this->crud->removeButton('delete');
+        $this->crud->removeButton('showItem');
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        return view($this->crud->getShowView(), $this->data);
+    }
+
     public function store(StoreRequest $request)
     {
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
-        return $redirect_location;
-        // $input = $request->only('name','question_id', 'user_id');
-        // Ticket::create($input);
-        // var_dump($input);
+        return $redirect_location;       
     }
 
     public function update(UpdateRequest $request)
@@ -203,6 +297,19 @@ class TicketCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+    public function destroy($id)
+    {               
+        $this->crud->hasAccessOrFail('delete');
+
+        // get entry ID from Request (makes sure its the last ID for nested resources)
+        $id = $this->crud->getCurrentEntryId() ?? $id;
+
+        $ticket_last = Ticket::find($id);
+        $ticket_last->questions()->detach();        
+        
+        return $this->crud->delete($id);
     }
 
 

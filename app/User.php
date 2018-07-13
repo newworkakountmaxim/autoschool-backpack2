@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Rule');
     }
 
+    public function themes()
+    {
+        return $this->belongsToMany('App\Models\Stgroup');
+    }
+
     // Потуги сделать Middleware
     public function isAdmin()
     {
