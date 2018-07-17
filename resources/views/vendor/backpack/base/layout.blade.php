@@ -83,6 +83,12 @@
             @include('backpack::teacher.menu')
           @endrole
 
+          @hasanyrole('superadmin','teacher')
+          
+          @else
+              @include('backpack::user.menu')
+          @endhasanyrole
+
         </nav>
       </header>
 
@@ -94,6 +100,14 @@
       @role('teacher')
         @include('backpack::teacher.sidebar')
       @endrole 
+
+     
+
+      @hasanyrole('superadmin','teacher')
+          
+      @else
+          @include('backpack::user.sidebar')
+      @endhasanyrole
       
 
       

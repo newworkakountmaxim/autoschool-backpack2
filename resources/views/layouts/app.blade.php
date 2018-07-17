@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        AutoSchool!
+                        !!AutoSchool-LOGO!!
                     </a>
                 </div>
 
@@ -46,18 +46,18 @@
                             <li><a href="{{ route('login') }}">Логин</a></li>
                             <li><a href="{{ route('register') }}">Регистрация</a></li>
                         @else
-                        <?php if(Auth::user()->can('dashboard')): ?>
-                            <li><a href="{{ url('/user/question') }}">ВОПРОСЫ</a></li>
-                            <li><a href="{{ url('/user/ticket') }}">БИЛЕТЫ</a></li>
+                        <?php if(Auth::user()->can('question_ticket')): ?>
+                            <li><a href="{{ url('/user/question') }}"><strong>ВСЕ ВОПРОСЫ</strong></a></li>
+                            <li><a href="{{ url('/user/ticket') }}"><strong>ВСЕ БИЛЕТЫ</strong></a></li>
                         <?php else: ?> 
                             <li class="alert alert-danger">Раздел ВОПРОСЫ и БИЛЕТЫ будет виден как только Админ подтвердит Ваши права</li>   
                         <?php endif; ?>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    <div class="user-ava">
+                                    <div class="user-ava"><strong>
                                         {{Auth::user()->email}}
-                                    </div>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    </div><strong>
+                                    {{ Auth::user()->name }} </strong><span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">

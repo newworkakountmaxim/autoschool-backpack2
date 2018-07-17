@@ -13,7 +13,7 @@
           <!-- ==== Recommended place for admin menu items ==== -->
           <!-- ================================================ -->
 
-          @include('backpack::admin.sidebar_content')
+          @include('backpack::user.sidebar_content')
 
           <!-- ======================================= -->
           {{-- <li class="header">Other menus</li> --}}

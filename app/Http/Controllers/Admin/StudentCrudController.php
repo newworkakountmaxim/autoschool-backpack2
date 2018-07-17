@@ -33,7 +33,49 @@ class StudentCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        //$this->crud->setFromDb();
+
+        
+        $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
+            'label' => "Пользователь который станет студентом",
+            'type' => 'select2',
+            'name' => 'user_id', // the method that defines the relationship in your Model
+            'entity' => 'user', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model' => "App\User", // foreign key model
+            //'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+        ]);
+
+        $this->crud->addField([  // Select           
+           'label' => "Группа",
+           'type' => 'select2_multiple',
+           'name' => 'stgroups', // the method that defines the relationship in your Model           
+           'entity' => 'stgroups', // the method that defines the relationship in your Model
+           'attribute' => 'name', // foreign key attribute that is shown to user
+           'model' => "App\Models\Stgroup", // foreign key model
+           'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+        ]);
+
+
+        $this->crud->addField([
+            'name' => 'ball',
+            'label' => "Балы"
+            
+        ]); 
+
+        $this->crud->addField([
+            'name' => 'description',
+            'type' => 'textarea',
+            'attributes' => [                             
+               'rows' => 8
+             ],
+            'label' => "Описание"
+        ]); 
+
+        
+
+
+
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
@@ -41,6 +83,36 @@ class StudentCrudController extends CrudController
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
 
+
+        $this->crud->addColumn([  // Select
+           'label' => "Имя",
+           'key' => 'user_id',
+           'type' => 'select',
+           'name' => 'user_id', // the db column for the foreign key
+           'entity' => 'user', // the method that defines the relationship in your Model
+           'attribute' => 'name', // foreign key attribute that is shown to user
+           'model' => "App\User" // foreign key model
+        ]);
+
+        
+
+
+        $this->crud->addColumn([
+            'name' => 'ball',
+            'label' => "Балы"
+            
+        ]); 
+
+        $this->crud->addColumn([
+            'name' => 'description',
+            'type' => 'textarea',
+            'attributes' => [                             
+               'rows' => 8
+             ],
+            'label' => "Описание"
+        ]); 
+
+        
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
         // $this->crud->addColumns(); // add multiple columns, at the end of the stack

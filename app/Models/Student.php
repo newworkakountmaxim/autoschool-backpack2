@@ -19,7 +19,7 @@ class Student extends Model
     protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['ball','description'];
+    protected $fillable = ['user_id','ball','description'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -34,6 +34,16 @@ class Student extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+    public function stgroups()
+    {
+        return $this->belongsToMany('App\Models\Stgroup');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     /*
     |--------------------------------------------------------------------------

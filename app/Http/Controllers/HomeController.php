@@ -27,8 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $rules = User::find(Auth::user()->id);
-        $a = $rules->theme()->get();
+        $user = User::find(Auth::user()->id);
+        $a = $user->theme()->get();
         return view('home')->withA($a);
         //return view('home');
         //dd($a);

@@ -34,7 +34,7 @@ Route::group(
 	[
 	    'prefix'     => 'user/',
 	    // 'middleware' => ['web', config('backpack.base.middleware_key', 'admin')],
-	    'middleware' => ['web', backpack_middleware(), 'can:dashboard'],
+	    'middleware' => ['web', backpack_middleware(), 'can:question_ticket'],
 	    'namespace'  => 'App\Http\Controllers\User',
 	],	
 	
@@ -42,6 +42,7 @@ Route::group(
 
 		// CRUD::resource('theme', 'ThemeCrudController');
 		CRUD::resource('question', 'QuestionUserController');
+		CRUD::resource('ticket', 'TicketUserController');
 		//CRUD::resource('ticket', 'TicketCrudController');
 		//CRUD::resource('rule', 'RuleCrudController');
 

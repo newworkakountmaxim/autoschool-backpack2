@@ -47,8 +47,9 @@
                               <li><a href="#"><span class="fa fa-star fa-lg"></span></a></li>
                             </ul>
                         </div>                        
-
-                        <div class="">                    
+                    </div>
+                    <div class="row">
+                        <div class="container">                    
                             <div class="panel-body" style="line-height:2rem">
                                 @if (session('status'))
                                     <div class="alert alert-success">
@@ -64,21 +65,27 @@
                         </div>  
 
                         
-                        <div class="col-xs-12 col-sm-4">
+                        <div class="col-xs-12 col-sm-3">
                             <h2><strong>245</strong></h2>                    
-                            <p><small>Новых билетов</small></p>
+                            <p><small>Новых билетов (информация может обновляться динамически как сообщения на ФБ или ВК .. с использованием Pusher)</small></p>
                             <button class="btn btn-info btn-block"><span class="fa fa-user"></span> Просмотреть билеты </button>
                         </div><!--/col-->
-                        <div class="col-xs-12 col-sm-4">
-                            <h2><strong> Нет группы </strong></h2>                    
-                            <p><small>Информация о группе</small></p>
-                            <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Статистика </button>
-                        </div><!--/col-->
-                        <div class="col-xs-12 col-sm-4">
+                        <div class="col-xs-12 col-sm-3">
                             <h2><strong>43</strong></h2>                    
-                            <p><small>Очков обучения</small></p>
+                            <p><small>Новых вопроса (информация может обновляться динамически как сообщения на ФБ или ВК .. с использованием Pusher)</small></p>
+                            <button type="button" class="btn btn-primary btn-block"><span class="fa fa-gear"></span> Просмотреть вопросы </button>  
+                        </div><!--/col-->    
+                        <div class="col-xs-12 col-sm-3">
+                            <h2><strong> Нет группы </strong></h2>                    
+                            <p><small>Информация о группе (информация может обновляться динамически как сообщения на ФБ или ВК .. с использованием Pusher)</small></p>
+                            <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Информация о группе </button>
+                        </div><!--/col-->
+                        <div class="col-xs-12 col-sm-3">
+                            <h2><strong>43</strong></h2>                    
+                            <p><small>Очков обучения (информация может обновляться динамически как сообщения на ФБ или ВК .. с использованием Pusher)</small></p>
                             <button type="button" class="btn btn-primary btn-block"><span class="fa fa-gear"></span> Информация об обучении </button>  
-                        </div><!--/col-->                                   
+                        </div><!--/col-->    
+
                     </div>                    
                 </div>
 
@@ -90,28 +97,28 @@
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Имя</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="text" value="Jane">
+                                        <input class="form-control" type="text" value="{{Auth::user()->name}}">
                                     </div>
                                 </div>                                    
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Email</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="email" value="email@gmail.com">
+                                        <input class="form-control" type="email" value="<?php echo Auth::user()->email; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Company</label>
+                                    <label class="col-lg-3 col-form-label form-control-label">Еще поля</label>
                                     <div class="col-lg-9">
                                         <input class="form-control" type="text" value="">
                                     </div>
                                 </div>                                
                                 <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Address</label>
+                                    <label class="col-lg-3 col-form-label form-control-label">Еще поля</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="text" value="" placeholder="Street">
+                                        <input class="form-control" type="text" value="" placeholder="">
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label"></label>
                                     <div class="col-lg-6">
                                         <input class="form-control" type="text" value="" placeholder="City">
@@ -119,11 +126,11 @@
                                     <div class="col-lg-3">
                                         <input class="form-control" type="text" value="" placeholder="State">
                                     </div>
-                                </div>                                
+                                </div>  -->                               
                                 <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Username</label>
+                                    <label class="col-lg-3 col-form-label form-control-label">Еще поля</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="text" value="janeuser">
+                                        <input class="form-control" type="text" value="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -141,8 +148,8 @@
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label"></label>
                                     <div class="col-lg-9">
-                                        <input type="reset" class="btn btn-secondary" value="Cancel">
-                                        <input type="button" class="btn btn-primary" value="Save Changes">
+                                        <input type="reset" class="btn btn-secondary" value="Отмена">
+                                        <input type="button" class="btn btn-primary" value="Изменить(пока не работает)">
                                     </div>
                                 </div>
                             </form>
